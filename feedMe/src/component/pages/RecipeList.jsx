@@ -3,6 +3,7 @@ import axios from "axios";
 import { RotatingLines } from "react-loader-spinner";
 import MealList from "../MealList";
 import { Link } from "react-router-dom";
+import data from "../../data/meals.json";
 
 const Meals = () => {
   const [meals, setMeal] = useState([]);
@@ -20,24 +21,19 @@ const Meals = () => {
   }, [currentPage, recipeType]);
 
   function getAllMeal() {
-    const url =
-      recipeType === "all"
-        ? `https://feedme-api.onrender.com/meals`
-        : `https://feedme-api.onrender.com/meals/type/${recipeType}`;
-    axios
-      .get(url)
-      .then((res) => {
-        setMeal(res.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-        setError("Failed to fetch repositories. Please try again.");
-      });
+    setLoading(true);
+    let filteredMeals = data;
+
+    if (recipeType !== "all") {
+      filteredMeals = data.filter(
+        (meal) => meal.type.toLowerCase() === recipeType
+      );
+    }
+
+    setMeal(filteredMeals);
+    setLoading(false);
   }
 
-  // eslint-disable-next-line no-unused-vars
   const handleSubmit = (e) => {
     e.preventDefault();
     setCurrentPage(1);

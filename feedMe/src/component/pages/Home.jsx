@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
 import { RotatingLines } from "react-loader-spinner";
+import data from "../../data/meals.json"; 
 
 const Home = () => {
   const [meal, setMeal] = useState(null);
@@ -16,25 +16,22 @@ const Home = () => {
     return "Dinner";
   };
 
-  const fetchMeal = async () => {
+  const fetchMeal = () => {
     const mealType = getMealType();
     try {
-      const response = await axios.get(
-        `https://feedme-api.onrender.com/meals/type/${mealType}`
-      );
-      if (
-        response.data &&
-        Array.isArray(response.data) &&
-        response.data.length > 0
-      ) {
-        const randomIndex = Math.floor(Math.random() * response.data.length);
-        setMeal(response.data[randomIndex]);
+      const mealsByType = data.filter((meal) => meal.type === mealType);
+      if (mealsByType.length > 0) {
+        const randomIndex = Math.floor(Math.random() * mealsByType.length);
+        setMeal(mealsByType[randomIndex]);
+        setError(null);
       } else {
-        setError("No meal available for this type. Please try again later.");
+        setError("No meal available for this type.");
+        setMeal(null);
       }
     } catch (error) {
       console.error("Error fetching meal:", error);
       setError("Failed to fetch a meal. Please try again later.");
+      setMeal(null);
     } finally {
       setLoading(false);
     }
@@ -46,9 +43,7 @@ const Home = () => {
 
   const handleGetAnotherRecipe = () => {
     setLoading(true);
-    fetchMeal().then(() => {
-      setLoading(false);
-    });
+    fetchMeal();
   };
 
   return (
