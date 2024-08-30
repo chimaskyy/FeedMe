@@ -47,7 +47,7 @@ const Home = () => {
   };
 
   return (
-    <div className="h-[85vh] flex flex-col items-center justify-center bg-white">
+    <div className="p-20 h-[85vh] flex flex-col items-center justify-center bg-white">
       <div className="flex flex-col items-center lg:flex-row lg:space-x-8 w-full max-w-6xl mx-auto p-6">
         <div className="mt-24 w-full lg:w-1/2 max-w-2xl mx-auto">
           <h1 className="text-center text-3xl font-bold mt-6 font-serif">
@@ -74,7 +74,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="mt-24 w-full lg:w-1/2 flex flex-col items-center">
+        <div className="mt-18 w-full lg:w-1/2 flex flex-col items-center">
           <p className="font-bold text-2xl font-sans mb-4">
             Let’s get you started with a recipe for{" "}
             <span className="text-[#2d6e2a]">{meal ? meal.type : "today"}</span>

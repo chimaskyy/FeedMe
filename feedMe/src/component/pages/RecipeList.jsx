@@ -73,7 +73,7 @@ const Meals = () => {
           onChange={searchHandler}
         />
       </div>
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-1 lg:gap-12 m-4 sm:m-4 lg:m-8 p-4 sm:p-6 lg:p-8">
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-1 lg:gap-12 m-4 sm:m-4 lg:m-8 p-4 sm:p-6 lg:p-6">
         <button
           onClick={() => handleRecipeType("all")}
           className={getButtonColor("all")}
